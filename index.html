@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2030 삶책길 교실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1F3A7A;
+    --life:#F2776B;   /* 삶 */
+    --book:#4DAE5A;   /* 책 */
+    --road:#3A8EE0;   /* 길 */
+    --ink:#3B2E2A;
+    --cream:#FFF9EE;
+    --path:#F8E6BE;
+    --path-edge:#EFD49A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Jua','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .page{
+    position:relative;
+    min-height:100%;
+    max-width:480px;
+    margin:0 auto;
+    overflow:hidden;
+    min-height:100dvh;
+    background:#A8D68B;
+    padding-bottom:48px;
+  }
+
+  /* 배경 장면 */
+  .scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .cloud{animation:drift 16s ease-in-out infinite alternate}
+  .cloud.slow{animation-duration:22s;animation-direction:alternate-reverse}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(14px)}}
+
+  /* 타이틀 */
+  header{position:relative;z-index:1;text-align:center;padding:104px 20px 0}
+  .year{
+    display:block;font-size:40px;color:var(--navy);letter-spacing:2px;
+    text-shadow:0 2px 0 #fff;
+  }
+  .title-wrap{position:relative;display:inline-block;margin-top:2px}
+  h1{
+    font-size:54px;font-weight:400;line-height:1.1;letter-spacing:1px;
+    -webkit-text-stroke:7px #fff;paint-order:stroke fill;
+    filter:drop-shadow(0 4px 0 rgba(31,58,122,.12));
+    animation:pop .7s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  h1 .l{color:var(--life)} h1 .b{color:var(--book)} h1 .r{color:var(--road)} h1 .n{color:var(--navy)}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  .rays{position:absolute;top:50%;width:28px;height:40px;transform:translateY(-50%)}
+  .rays.left{left:-36px} .rays.right{right:-36px;transform:translateY(-50%) scaleX(-1)}
+
+  /* 메뉴 */
+  .menu{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;
+    padding:clamp(48px, 14vh, 140px) 22px 0;
+  }
+  .card{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    aspect-ratio:1/0.86;
+    border:3px solid var(--bd);
+    border-radius:30px;
+    background:var(--bg);
+    box-shadow:0 6px 0 var(--bd);
+    font:inherit;font-size:25px;color:var(--ink);
+    cursor:pointer;text-decoration:none;
+    transform:rotate(var(--tilt));
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .card:active{transform:rotate(var(--tilt)) translateY(5px);box-shadow:0 1px 0 var(--bd)}
+  .card:focus-visible{outline:4px solid var(--navy);outline-offset:4px}
+  .card svg{width:74px;height:74px}
+  .intro {--bg:#FFF3C9;--bd:#F3CE63;--tilt:-1.2deg}
+  .plan  {--bg:#E3F5DC;--bd:#8FD08A;--tilt:1deg}
+  .join  {--bg:#DCEEFC;--bd:#86BDEB;--tilt:1.2deg}
+  .review{--bg:#FDE3E1;--bd:#F3A39B;--tilt:-1deg}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+  @media (max-width:360px){
+    h1{font-size:46px} .card{font-size:22px} .card svg{width:62px;height:62px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 배경: 교실 창가에서 내다보는 산책길 -->
+  <svg class="scene" viewBox="0 0 400 860" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#CBE8F6"/>
+        <stop offset=".6" stop-color="#EAF4EE"/>
+        <stop offset="1" stop-color="#FFEFD2"/>
+      </linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#FFF6D8"/>
+        <stop offset=".45" stop-color="#FFE9A8" stop-opacity=".7"/>
+        <stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="meadow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#D6EDB8"/>
+        <stop offset="1" stop-color="#A8D68B"/>
+      </linearGradient>
+      <linearGradient id="walk" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FBEFD3"/>
+        <stop offset="1" stop-color="#F3DDAE"/>
+      </linearGradient>
+      <symbol id="tree" viewBox="0 0 60 80">
+        <rect x="27" y="46" width="6" height="32" rx="2" fill="#A87B55"/>
+        <circle cx="30" cy="32" r="22" fill="#79BC69"/>
+        <circle cx="18" cy="40" r="13" fill="#8CCB78"/>
+        <circle cx="42" cy="40" r="13" fill="#8CCB78"/>
+        <circle cx="24" cy="24" r="9" fill="#A6DA8C"/>
+      </symbol>
+      <symbol id="blossom" viewBox="0 0 60 80">
+        <rect x="27" y="46" width="6" height="32" rx="2" fill="#A87B55"/>
+        <circle cx="30" cy="32" r="22" fill="#F7C6C0"/>
+        <circle cx="18" cy="40" r="13" fill="#FAD5CF"/>
+        <circle cx="42" cy="40" r="13" fill="#FAD5CF"/>
+        <circle cx="24" cy="24" r="9" fill="#FDE6E1"/>
+      </symbol>
+      <symbol id="bush" viewBox="0 0 60 30">
+        <circle cx="16" cy="20" r="12" fill="#8CCB78"/>
+        <circle cx="32" cy="15" r="15" fill="#79BC69"/>
+        <circle cx="46" cy="21" r="11" fill="#8CCB78"/>
+      </symbol>
+    </defs>
+
+    <!-- 하늘 -->
+    <rect width="400" height="400" fill="url(#sky)"/>
+    <circle cx="300" cy="190" r="130" fill="url(#sun)"/>
+    <g fill="#fff" opacity=".18">
+      <path d="M300 190 L140 860 L220 860z"/>
+      <path d="M300 190 L330 860 L410 860z"/>
+    </g>
+    <path class="cloud" d="M60 150h70a15 15 0 0 0 0-30 22 22 0 0 0-41-3 17 17 0 0 0-29 33z" fill="#fff" opacity=".9"/>
+    <path class="cloud slow" d="M270 120h56a12 12 0 0 0 0-24 18 18 0 0 0-33-2 14 14 0 0 0-23 26z" fill="#fff" opacity=".85"/>
+
+    <g transform="translate(0 -125)">
+    <!-- 먼 언덕과 나무 -->
+    <path d="M0 360C70 318 140 330 200 352S320 320 400 340V420H0z" fill="#C5E3B4"/>
+    <use href="#tree" x="40" y="318" width="22" height="30" opacity=".75"/>
+    <use href="#tree" x="66" y="324" width="18" height="24" opacity=".75"/>
+    <use href="#tree" x="300" y="312" width="22" height="30" opacity=".75"/>
+    <use href="#blossom" x="326" y="320" width="18" height="24" opacity=".8"/>
+
+    <!-- 풀밭 -->
+    <path d="M0 372C90 352 160 362 200 370S330 356 400 366V990H0z" fill="url(#meadow)"/>
+
+    <!-- 산책길 -->
+    <path d="M194 368C178 420 262 470 242 548C222 628 112 700 70 990H340C330 800 312 640 292 560C270 476 214 420 206 368z" fill="#EACD95"/>
+    <path d="M196 368C181 420 258 472 238 550C218 630 116 702 78 990H332C323 800 306 642 286 562C264 478 212 420 204 368z" fill="url(#walk)"/>
+    <g fill="#E8D2A4" opacity=".7">
+      <ellipse cx="232" cy="470" rx="6" ry="2.5"/><ellipse cx="248" cy="560" rx="9" ry="3.5"/>
+      <ellipse cx="196" cy="660" rx="12" ry="4.5"/><ellipse cx="258" cy="760" rx="15" ry="5.5"/>
+    </g>
+
+    <!-- 길가 나무, 덤불, 벤치 -->
+    <use href="#tree" x="128" y="356" width="34" height="46"/>
+    <use href="#blossom" x="246" y="350" width="34" height="46"/>
+    <use href="#bush" x="150" y="440" width="40" height="20"/>
+    <use href="#tree" x="20" y="400" width="70" height="94"/>
+    <use href="#blossom" x="310" y="392" width="76" height="102"/>
+
+    <g transform="translate(300 492)">
+      <rect x="2" y="16" width="4" height="12" fill="#8A6143"/>
+      <rect x="40" y="16" width="4" height="12" fill="#8A6143"/>
+      <rect x="0" y="0" width="46" height="6" rx="2" fill="#C99464"/>
+      <rect x="0" y="12" width="46" height="6" rx="2" fill="#B78152"/>
+    </g>
+
+    <use href="#bush" x="-10" y="610" width="90" height="45"/>
+    <use href="#bush" x="320" y="640" width="100" height="50"/>
+    <use href="#tree" x="-50" y="660" width="140" height="190"/>
+    <use href="#tree" x="320" y="690" width="130" height="176"/>
+
+    <!-- 꽃 -->
+    <g>
+      <g transform="translate(176 520)"><circle r="4" fill="#fff"/><circle r="1.8" fill="#F7C948"/></g>
+      <g transform="translate(286 610)"><circle r="4.5" fill="#FDE3E1"/><circle r="2" fill="#F2776B"/></g>
+      <g transform="translate(110 610)"><circle r="5" fill="#fff"/><circle r="2.2" fill="#F7C948"/></g>
+      <g transform="translate(66 760)"><circle r="6" fill="#DCEEFC"/><circle r="2.6" fill="#3A8EE0"/></g>
+      <g transform="translate(350 790)"><circle r="6" fill="#fff"/><circle r="2.6" fill="#F7C948"/></g>
+      <g transform="translate(140 820)"><circle r="6" fill="#FDE3E1"/><circle r="2.6" fill="#F2776B"/></g>
+    </g>
+
+    </g>
+
+    <!-- 교실 창가: 나무 창틀, 커튼, 가랜드 -->
+    <rect x="0" y="0" width="400" height="16" fill="#E2BE8A"/>
+    <rect x="0" y="14" width="400" height="3" fill="#C9A06C"/>
+    <path d="M0 17H58C52 110 38 180 46 262C28 256 12 248 0 240z" fill="#FFF4E2"/>
+    <path d="M18 24C16 100 18 170 24 250M36 24C32 100 30 170 34 256" stroke="#F0DDBE" stroke-width="2" fill="none"/>
+    <rect x="0" y="210" width="52" height="8" rx="4" fill="#F3A39B" transform="rotate(-8 26 214)"/>
+    <path d="M400 17H342C348 110 362 180 354 262C372 256 388 248 400 240z" fill="#FFF4E2"/>
+    <path d="M382 24C384 100 382 170 376 250M364 24C368 100 370 170 366 256" stroke="#F0DDBE" stroke-width="2" fill="none"/>
+    <rect x="348" y="210" width="52" height="8" rx="4" fill="#86BDEB" transform="rotate(8 374 214)"/>
+
+    <path d="M10 20Q200 70 390 20" stroke="#B88B5E" stroke-width="1.5" fill="none"/>
+    <g stroke="#fff" stroke-width="1" stroke-linejoin="round">
+      <path d="M38 29h20l-10 19z" fill="#F2776B"/>
+      <path d="M76 36h20l-10 19z" fill="#F7C948"/>
+      <path d="M114 41h20l-10 19z" fill="#4DAE5A"/>
+      <path d="M152 44h20l-10 19z" fill="#3A8EE0"/>
+      <path d="M228 44h20l-10 19z" fill="#F2776B"/>
+      <path d="M266 41h20l-10 19z" fill="#F7C948"/>
+      <path d="M304 36h20l-10 19z" fill="#4DAE5A"/>
+      <path d="M342 29h20l-10 19z" fill="#3A8EE0"/>
+    </g>
+  </svg>
+
+  <header>
+    <span class="year">2030</span>
+    <div class="title-wrap">
+      <svg class="rays left" viewBox="0 0 28 40" aria-hidden="true">
+        <g stroke="#F7C948" stroke-width="4" stroke-linecap="round"><path d="M24 6 14 2"/><path d="M22 20H6"/><path d="M24 34l-10 4"/></g>
+      </svg>
+      <h1><span class="l">삶</span><span class="b">책</span><span class="r">길</span> <span class="n">교실</span></h1>
+      <svg class="rays right" viewBox="0 0 28 40" aria-hidden="true">
+        <g stroke="#F7C948" stroke-width="4" stroke-linecap="round"><path d="M24 6 14 2"/><path d="M22 20H6"/><path d="M24 34l-10 4"/></g>
+      </svg>
+    </div>
+  </header>
+
+  <nav class="menu">
+    <!-- 교실 소개 -->
+    <a class="card intro" href="intro.html" target="_top">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <g stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M40 15V4" fill="none"/>
+          <path d="M40 4h12l-3 4 3 4H40z" fill="#6CC070"/>
+          <rect x="14" y="34" width="52" height="34" rx="3" fill="#FFE8B8"/>
+          <path d="M8 37 40 15l32 22z" fill="#F2776B"/>
+          <circle cx="40" cy="29" r="6" fill="#fff"/>
+          <rect x="34" y="51" width="12" height="17" rx="2" fill="#8FC6EA"/>
+          <rect x="19" y="42" width="9" height="9" rx="1.5" fill="#8FC6EA"/>
+          <rect x="52" y="42" width="9" height="9" rx="1.5" fill="#8FC6EA"/>
+        </g>
+        <path d="M40 29v-3.5M40 29h3" stroke="#4A3A2E" stroke-width="2" stroke-linecap="round"/>
+        <path d="M4 70h72" stroke="#7BC67E" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      교실 소개
+    </a>
+
+    <!-- 수업안 -->
+    <a class="card plan" href="https://drive.google.com/file/d/15EwNPYtCFNmH5ETN4iphrfGHaXQUSWbY/view?usp=sharing" target="_top">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <g stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M40 34c-9-6-22-6-32-2v34c10-4 23-4 32 2 9-6 22-6 32-2V32c-10-4-23-4-32 2z" fill="#4DAE5A"/>
+          <path d="M40 31c-8-5-19-5-28-2v31c9-3 20-3 28 2z" fill="#fff"/>
+          <path d="M40 31c8-5 19-5 28-2v31c-9-3-20-3-28 2z" fill="#fff"/>
+          <path d="M40 31V16" fill="none"/>
+          <path d="M40 22c-3-7-11-9-14-6 2 5 9 8 14 6z" fill="#8FD08A"/>
+          <path d="M40 18c3-7 11-9 14-6-2 5-9 8-14 6z" fill="#8FD08A"/>
+        </g>
+        <g stroke="#CDBFAE" stroke-width="2" stroke-linecap="round">
+          <path d="M18 40c5-1 11-1 16 1M18 47c5-1 11-1 16 1M46 41c5-2 11-2 16-1M46 48c5-2 11-2 16-1"/>
+        </g>
+      </svg>
+      수업안
+    </a>
+
+    <!-- 참관 등록 -->
+    <a class="card join" href="https://script.google.com/macros/s/AKfycbxG9zVcKXjxmD4uxUEU-qdDDkzNvJKppNtoHMyXVixaqrXjcREgqKOhr8TOC5w2jhA4Yg/exec" target="_top">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <g stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="8" y="18" width="56" height="42" rx="7" fill="#fff"/>
+          <path d="M8 25a7 7 0 0 1 7-7h42a7 7 0 0 1 7 7v4H8z" fill="#3A8EE0"/>
+          <circle cx="24" cy="44" r="8" fill="#FFD9B8"/>
+          <path d="M16 43c0-6 4-9 8-9s8 3 8 8c-4-3-10-2-16 1z" fill="#8A5A3B"/>
+        </g>
+        <g stroke="#B8CFE6" stroke-width="3" stroke-linecap="round"><path d="M38 40h18M38 48h12"/></g>
+        <g stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round" transform="rotate(40 62 58)">
+          <rect x="56" y="38" width="10" height="30" rx="2" fill="#FFC94A"/>
+          <path d="M56 68l5 9 5-9z" fill="#FFE8C8"/>
+          <rect x="56" y="34" width="10" height="6" rx="2" fill="#F3A39B"/>
+        </g>
+      </svg>
+      참관 등록
+    </a>
+
+    <!-- 참관 소감 -->
+    <a class="card review" href="https://padlet.com/mlove2iii/2030-pzt59ba5copxur14" target="_top">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <path d="M14 14h52a8 8 0 0 1 8 8v28a8 8 0 0 1-8 8H34l-14 12 2-12h-8a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8z" fill="#fff" stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M40 48s-13-7-13-15a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 8-13 15-13 15z" fill="#F2776B" stroke="#4A3A2E" stroke-width="2.5" stroke-linejoin="round"/>
+        <g stroke="#F7C948" stroke-width="3" stroke-linecap="round"><path d="M70 6v8M66 10h8"/></g>
+      </svg>
+      참관 소감
+    </a>
+  </nav>
+
+</div>
+
+</body>
+</html>
